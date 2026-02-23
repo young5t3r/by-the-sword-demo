@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>By The Sword — Customer Advisor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #1a1f2e;
+  --navy2: #232a3d;
+  --red: #c0392b;
+  --red2: #a93226;
+  --white: #ffffff;
+  --offwhite: #f8f8f8;
+  --light: #f0f0f0;
+  --border: #dddddd;
+  --text: #222222;
+  --muted: #666666;
+  --gold: #c8972a;
+  --green: #1e8449;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--light);font-family:'Open Sans',sans-serif;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px;}
+.card{width:100%;max-width:680px;background:var(--white);border:1px solid var(--border);border-radius:4px;box-shadow:0 4px 20px rgba(0,0,0,0.12);display:flex;flex-direction:column;max-height:92vh;overflow:hidden;}
+.site-header{background:var(--navy);flex-shrink:0;}
+.header-top{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;border-bottom:3px solid var(--red);}
+.brand{display:flex;align-items:center;gap:12px;}
+.brand-shield{width:40px;height:40px;background:var(--red);border:2px solid var(--gold);border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+.brand-text h1{font-family:'Cinzel',serif;font-size:18px;font-weight:700;color:var(--white);letter-spacing:0.08em;line-height:1.1;}
+.brand-text p{font-size:11px;color:rgba(255,255,255,0.6);margin-top:2px;letter-spacing:0.04em;}
+.header-contact{text-align:right;}
+.header-contact .phone{font-family:'Cinzel',serif;font-size:13px;color:var(--gold);font-weight:600;letter-spacing:0.04em;}
+.header-contact .hours{font-size:10px;color:rgba(255,255,255,0.5);margin-top:2px;}
+.tagline-bar{background:var(--red);padding:6px 20px;display:flex;align-items:center;justify-content:space-between;}
+.tagline-bar span{font-size:11px;color:rgba(255,255,255,0.92);letter-spacing:0.04em;font-style:italic;}
+.live-ind{display:flex;align-items:center;gap:5px;font-size:10px;color:#7dff9a;font-family:'Cinzel',serif;letter-spacing:0.06em;}
+.ldot{width:7px;height:7px;background:#4ade80;border-radius:50%;animation:lp 2s infinite;}
+@keyframes lp{0%,100%{opacity:1;}50%{opacity:0.4;}}
+.agent-bar{background:var(--offwhite);border-bottom:1px solid var(--border);padding:10px 20px;display:flex;align-items:center;gap:12px;flex-shrink:0;}
+.aicon{width:36px;height:36px;background:var(--navy);border:2px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;position:relative;}
+.aicon::after{content:'';position:absolute;bottom:-1px;right:-1px;width:10px;height:10px;background:#27ae60;border-radius:50%;border:2px solid var(--offwhite);}
+.ainfo h3{font-family:'Cinzel',serif;font-size:13px;font-weight:600;color:var(--navy);letter-spacing:0.04em;}
+.ainfo p{font-size:11px;color:var(--muted);margin-top:1px;}
+.abadge{margin-left:auto;font-size:11px;padding:4px 10px;border-radius:3px;background:rgba(39,174,96,0.1);border:1px solid rgba(39,174,96,0.35);color:var(--green);font-weight:600;letter-spacing:0.04em;}
+.chat{flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:16px;background:var(--white);min-height:0;}
+.chat::-webkit-scrollbar{width:5px;}.chat::-webkit-scrollbar-track{background:var(--light);}.chat::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px;}
+.msg{display:flex;gap:10px;animation:mi .25s ease;}
+.msg.user{flex-direction:row-reverse;}
+@keyframes mi{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+.mav{width:30px;height:30px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:13px;border:1px solid var(--border);}
+.msg.agent .mav{background:var(--navy);font-size:14px;}
+.msg.user .mav{background:var(--light);color:var(--muted);font-size:11px;font-weight:600;}
+.mbody{max-width:calc(100% - 44px);}
+.mlabel{font-size:11px;color:var(--muted);margin-bottom:4px;font-weight:600;letter-spacing:0.03em;text-transform:uppercase;}
+.msg.user .mlabel{text-align:right;}
+.bubble{padding:12px 16px;border-radius:4px;font-size:14px;line-height:1.75;color:var(--text);}
+.msg.agent .bubble{background:var(--offwhite);border:1px solid var(--border);border-top-left-radius:0;}
+.msg.user .bubble{background:#fff5f5;border:1px solid #f5c6c6;border-top-right-radius:0;}
+.bubble strong{color:var(--red2);font-weight:600;}
+.bubble em{color:var(--navy2);font-style:italic;}
+.bubble code{font-family:monospace;font-size:12px;background:var(--light);padding:2px 6px;border-radius:3px;border:1px solid var(--border);}
+.tbrow{display:flex;gap:10px;}
+.tbub{padding:12px 16px;background:var(--offwhite);border:1px solid var(--border);border-radius:4px;border-top-left-radius:0;display:flex;gap:4px;align-items:center;}
+.td{width:6px;height:6px;border-radius:50%;background:var(--navy2);animation:tdb 1.2s infinite;}
+.td:nth-child(2){animation-delay:.15s;}.td:nth-child(3){animation-delay:.3s;}
+@keyframes tdb{0%,60%,100%{transform:translateY(0);opacity:0.3;}30%{transform:translateY(-4px);opacity:1;}}
+.quick-sec{padding:0 20px 12px;background:var(--white);flex-shrink:0;}
+.qlabel{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;font-weight:600;margin-bottom:7px;}
+.qbtns{display:flex;flex-wrap:wrap;gap:6px;}
+.qbtn{font-size:12px;padding:6px 12px;border-radius:3px;border:1px solid var(--border);background:var(--offwhite);color:var(--navy);cursor:pointer;transition:all .2s;font-family:'Open Sans',sans-serif;}
+.qbtn:hover{background:var(--navy);color:var(--white);border-color:var(--navy);}
+.api-bar{margin:0 20px 10px;padding:10px 14px;background:#fff8e6;border:1px solid #f0d080;border-radius:3px;display:flex;align-items:center;gap:10px;flex-shrink:0;}
+.api-bar input{flex:1;background:none;border:none;outline:none;color:var(--text);font-family:'Open Sans',sans-serif;font-size:13px;}
+.api-bar input::placeholder{color:var(--muted);}
+.api-bar button{font-size:12px;padding:7px 16px;border-radius:3px;background:var(--red);color:var(--white);border:none;cursor:pointer;font-family:'Cinzel',serif;font-weight:600;letter-spacing:0.04em;transition:background .2s;white-space:nowrap;}
+.api-bar button:hover{background:var(--red2);}
+.input-sec{padding:12px 20px 16px;border-top:1px solid var(--border);background:var(--offwhite);flex-shrink:0;}
+.irow{display:flex;gap:10px;align-items:flex-end;background:var(--white);border:1px solid var(--border);border-radius:3px;padding:8px 8px 8px 14px;transition:border-color .2s;box-shadow:inset 0 1px 3px rgba(0,0,0,.04);}
+.irow:focus-within{border-color:var(--navy);}
+.irow textarea{flex:1;background:none;border:none;outline:none;color:var(--text);font-family:'Open Sans',sans-serif;font-size:14px;line-height:1.5;resize:none;min-height:22px;max-height:100px;}
+.irow textarea::placeholder{color:var(--muted);}
+.sbtn{width:36px;height:36px;border-radius:3px;background:var(--red);border:none;color:var(--white);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .2s;}
+.sbtn:hover{background:var(--red2);}.sbtn:disabled{opacity:.35;cursor:not-allowed;}
+.site-footer{background:var(--navy);padding:8px 20px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
+.flinks{display:flex;gap:14px;}
+.flinks a{font-size:10px;color:rgba(255,255,255,.5);text-decoration:none;letter-spacing:.03em;transition:color .2s;}
+.flinks a:hover{color:var(--gold);}
+.fcopy{font-size:10px;color:rgba(255,255,255,.3);letter-spacing:.03em;}
+@media(max-width:600px){body{padding:0;}.card{max-height:100vh;border-radius:0;}.header-contact,.flinks{display:none;}}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="site-header">
+    <div class="header-top">
+      <div class="brand">
+        <div class="brand-shield">⚔️</div>
+        <div class="brand-text">
+          <h1>BY THE SWORD</h1>
+          <p>Medieval Gear · Swords · Armour · LARP</p>
+        </div>
+      </div>
+      <div class="header-contact">
+        <div class="phone">888.244.3263</div>
+        <div class="hours">Mon–Fri 9am–5pm EST</div>
+      </div>
+    </div>
+    <div class="tagline-bar">
+      <span>The Largest & Most Reliable Sword Site on the Net — Since 1995</span>
+      <div class="live-ind"><div class="ldot"></div>ADVISOR ONLINE</div>
+    </div>
+  </div>
+
+  <div class="agent-bar">
+    <div class="aicon">⚔️</div>
+    <div class="ainfo">
+      <h3>Customer Advisor</h3>
+      <p>Product expert · Available 24/7 · Instant answers</p>
+    </div>
+    <span class="abadge">● Online</span>
+  </div>
+
+  <div class="chat" id="chat">
+    <div class="msg agent">
+      <div class="mav">⚔️</div>
+      <div class="mbody">
+        <div class="mlabel">Customer Advisor</div>
+        <div class="bubble">
+          Welcome to <strong>By The Sword</strong> — the web's largest and most trusted medieval arms and armour retailer since 1995!<br><br>
+          I'm your Customer Advisor, here to help you find exactly what you're looking for — whether that's a <strong>battle-ready sword</strong>, <strong>LARP gear</strong>, a <strong>full suit of armour</strong>, or a <strong>museum-quality collector's piece</strong>.<br><br>
+          What can I help you find today?
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="quick-sec" id="quickSec">
+    <div class="qlabel">Popular questions</div>
+    <div class="qbtns">
+      <button class="qbtn" onclick="qs(this)">What swords do you carry?</button>
+      <button class="qbtn" onclick="qs(this)">I need LARP armour</button>
+      <button class="qbtn" onclick="qs(this)">Battle-ready vs display — what's the difference?</button>
+      <button class="qbtn" onclick="qs(this)">Looking for a gift for a collector</button>
+      <button class="qbtn" onclick="qs(this)">Do you ship internationally?</button>
+    </div>
+  </div>
+
+  <div class="api-bar" id="apiBar">
+    <input type="password" id="ki" placeholder="🔑 Enter Anthropic API key to activate advisor...">
+    <button onclick="act()">Activate</button>
+  </div>
+
+  <div class="input-sec">
+    <div class="irow">
+      <textarea id="mi" placeholder="Ask about our products, shipping, or anything else..." rows="1"
+        onkeydown="hk(event)" oninput="ar(this)" disabled></textarea>
+      <button class="sbtn" id="sb" onclick="go()" disabled>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="site-footer">
+    <div class="flinks">
+      <a href="https://www.by-the-sword.com" target="_blank">by-the-sword.com</a>
+      <a href="https://www.by-the-sword.com/t-contact.aspx" target="_blank">Contact Us</a>
+      <a href="https://www.by-the-sword.com/t-shipping.aspx" target="_blank">Shipping</a>
+      <a href="https://www.by-the-sword.com/t-returns.aspx" target="_blank">Returns</a>
+    </div>
+    <div class="fcopy">© by-the-sword.com 1995–2026</div>
+  </div>
+</div>
+
+<script>
+let k='',h=[],l=false;
+const SYS=`You are a knowledgeable and friendly Customer Advisor for By The Sword (by-the-sword.com) — one of the oldest and most trusted online medieval retailers, in business since 1995.
+
+Your tone is warm, helpful, and genuinely enthusiastic about medieval history and gear. Professional but approachable. Speak naturally and clearly — no medieval speech patterns.
+
+About By The Sword: One of the largest medieval and historical arms retailers online, serving collectors, reenactors, LARP groups, stage/film productions, and history enthusiasts worldwide.
+Phone: 888.244.3263 | Hours: Mon–Fri 9am–5pm EST | Email: sales@by-the-sword.com
+
+PRODUCTS:
+Swords: Medieval Western European (12th-15th c), Viking, Japanese/Asian, daggers, rapiers, great swords. Brands: Legacy Arms/Gen2, Hanwei/CAS Iberia, Cold Steel, Windlass, Marto, Tinker Pearce, Deepeeka. Licensed: Lord of the Rings, Game of Thrones.
+Armour: Full suits, chainmail, helms (Great Helm, Sallet, Kettle Hat, Bascinet), pauldrons, vambraces, gauntlets, greaves. Leather armour, LARP armour (Epic Armoury, Red Dragon Armoury). HEMA and SCA combat-ready.
+Shields: Round, kite, heater, tower — decorative and functional.
+Polearms & Ranged: Halberds, crossbows, longbows, bolts, arrows.
+Clothing: Medieval & Renaissance tunics, gowns, cloaks, belts, footwear, corsets, capes.
+LARP: Full range of foam/latex weapons and armour.
+Collectibles: Wall displays, jewelry, coins, musical instruments, figurines, home decor.
+
+KEY KNOWLEDGE:
+- Battle-ready = high carbon steel, heat treated, full tang — functional for SCA, HEMA, reenactment
+- Display/Decorative = wall display and collecting only — not for combat
+- LARP = foam/latex — safe for contact combat
+- Many items customizable (blade sharpness, steel gauge, finish)
+- Museum-quality replicas endorsed by historical societies
+- Ships worldwide — direct to website for specific rates
+- For pricing/stock/orders: direct to by-the-sword.com or call/email
+
+YOUR BEHAVIOR:
+- Answer warmly and in detail
+- Ask clarifying questions to give better recommendations (LARP vs battle-ready vs display vs gift?)
+- Suggest related accessories when helpful
+- Be genuinely enthusiastic — you love this stuff
+- Keep responses helpful and clear
+- End with an invitation to ask more`;
+
+function act(){
+  const v=document.getElementById('ki').value.trim();
+  if(!v.startsWith('sk-')){document.getElementById('ki').placeholder='Please enter a valid key starting with sk-ant-...';return;}
+  k=v;
+  document.getElementById('apiBar').style.display='none';
+  document.getElementById('mi').disabled=false;
+  document.getElementById('sb').disabled=false;
+  document.getElementById('mi').focus();
+  add('agent','Advisor connected! I\'m here and ready to help. What are you looking for today?');
+}
+
+function qs(el){document.getElementById('mi').value=el.textContent;document.getElementById('quickSec').style.display='none';go();}
+function hk(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();go();}}
+function ar(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,100)+'px';}
+
+function add(role,html){
+  const c=document.getElementById('chat');
+  const d=document.createElement('div');
+  d.className='msg '+role;
+  const ic=role==='agent'?'⚔️':'You';
+  const lb=role==='agent'?'Customer Advisor':'You';
+  d.innerHTML='<div class="mav">'+ic+'</div><div class="mbody"><div class="mlabel">'+lb+'</div><div class="bubble">'+html+'</div></div>';
+  c.appendChild(d);c.scrollTop=c.scrollHeight;
+}
+
+function st(){
+  const c=document.getElementById('chat');
+  const d=document.createElement('div');
+  d.id='ty';d.className='tbrow';
+  d.innerHTML='<div class="mav" style="width:30px;height:30px;border-radius:50%;border:1px solid var(--border);background:var(--navy);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0">⚔️</div><div class="tbub"><div class="td"></div><div class="td"></div><div class="td"></div></div>';
+  c.appendChild(d);c.scrollTop=c.scrollHeight;
+}
+
+function rt(){const e=document.getElementById('ty');if(e)e.remove();}
+
+function fmt(t){
+  return t
+    .replace(/```[\w]*\n?([\s\S]*?)```/g,'<pre style="background:var(--navy);padding:12px;border-radius:4px;margin:8px 0;overflow-x:auto"><code style="color:#a8d8a8;font-family:monospace;font-size:12px">$1</code></pre>')
+    .replace(/`([^`]+)`/g,'<code style="background:var(--light);padding:2px 6px;border-radius:3px;border:1px solid var(--border);font-family:monospace;font-size:12px">$1</code>')
+    .replace(/^#{1,3} (.+)$/gm,'<strong style="display:block;margin:10px 0 4px;font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--navy)">$1</strong>')
+    .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
+    .replace(/\*(.+?)\*/g,'<em>$1</em>')
+    .replace(/^[-•] (.+)$/gm,'<li style="margin:3px 0">$1</li>')
+    .replace(/(<li[^>]*>[\s\S]*?<\/li>\s*)+/g,m=>'<ul style="margin:6px 0 6px 18px">'+m+'</ul>')
+    .replace(/\n\n/g,'<br><br>')
+    .replace(/\n/g,'<br>');
+}
+
+async function go(){
+  if(!k){document.getElementById('apiBar').scrollIntoView({behavior:'smooth'});return;}
+  const inp=document.getElementById('mi');
+  const txt=inp.value.trim();
+  if(!txt||l)return;
+  inp.value='';inp.style.height='auto';
+  l=true;document.getElementById('sb').disabled=true;
+  document.getElementById('quickSec').style.display='none';
+  add('user',txt.replace(/\n/g,'<br>'));
+  h.push({role:'user',content:txt});
+  st();
+  try{
+    const r=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','x-api-key':k,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1024,system:SYS,messages:h})
+    });
+    const data=await r.json();
+    if(!r.ok)throw new Error(data.error?.message||'API error');
+    const rep=data.content[0].text;
+    h.push({role:'assistant',content:rep});
+    rt();add('agent',fmt(rep));
+  }catch(e){rt();add('agent','<span style="color:var(--red)">Sorry, something went wrong: '+e.message+'. Please check your API key.</span>');}
+  l=false;document.getElementById('sb').disabled=false;inp.focus();
+}
+</script>
+</body>
+</html>
